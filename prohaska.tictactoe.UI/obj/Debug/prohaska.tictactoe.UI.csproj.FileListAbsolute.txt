@@ -1,0 +1,14 @@
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\bin\Debug\prohaska.tictactoe.UI.exe.config
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.csprojResolveAssemblyReference.cache
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\MainWindow.g.cs
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\App.g.cs
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI_MarkupCompile.cache
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI_MarkupCompile.lref
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\bin\Debug\prohaska.tictactoe.UI.exe
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\bin\Debug\prohaska.tictactoe.UI.pdb
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\MainWindow.baml
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.g.resources
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.Properties.Resources.resources
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.csproj.GenerateResource.Cache
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.exe
+c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.pdb
