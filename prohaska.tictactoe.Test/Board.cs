@@ -39,6 +39,14 @@ namespace prohaska.tictactoe.Test
         }
 
         [TestMethod]
+        [ExpectedException(typeof(Exception), "We need two players to start.")]
+        public void WhenIHaveNoPlayerSignedAndIStartItShouldThrowAError()
+        {
+            IBoard board = new Board();
+            board.Start();
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(Exception),"We need two players to start.")]
         public void WhenIHaveOnePlayerSignedAndIStartItShouldThrowAError()
         {

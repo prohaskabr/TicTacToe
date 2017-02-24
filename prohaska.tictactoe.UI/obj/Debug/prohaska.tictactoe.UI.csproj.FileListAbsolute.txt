@@ -12,3 +12,17 @@ c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\p
 c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.csproj.GenerateResource.Cache
 c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.exe
 c:\users\thiagorudolf\documents\visual studio 2015\Projects\prohaska.tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.pdb
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\bin\Debug\prohaska.tictactoe.UI.exe.config
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.exe
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.pdb
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\bin\Debug\prohaska.tictactoe.UI.exe
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\bin\Debug\prohaska.tictactoe.UI.pdb
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.csprojResolveAssemblyReference.cache
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\MainWindow.g.cs
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\App.g.cs
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI_MarkupCompile.cache
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI_MarkupCompile.lref
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\MainWindow.baml
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.g.resources
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.Properties.Resources.resources
+C:\AvenueCode\tictactoe\prohaska.tictactoe.UI\obj\Debug\prohaska.tictactoe.UI.csproj.GenerateResource.Cache
