@@ -1,12 +1,21 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using prohaska.tictactoe.UI;
+using System.Collections.Generic;
 
 namespace prohaska.tictactoe.Test
 {
     [TestClass]
     public class BoardTest
     {
+      
+
+        [TestInitialize]
+        public void SetUp() {
+           
+        }
+
+
         [TestMethod]
         public void WhenICreateTheBoardItShoudHave3x3Positions()
         {
@@ -103,6 +112,119 @@ namespace prohaska.tictactoe.Test
             board.Start();
             board.SetSpot(Spot, board.PlayerOne);
             board.SetSpot(Spot, board.PlayerTwo);
-        }        
+        }
+
+        [TestMethod]       
+        public void WhenIGetTheValidRowsItShouldHaveEightPossibilities()
+        {
+            IBoard board = new Board();
+
+            var validRows = board.GetValidRows();
+
+            Assert.AreEqual(8, validRows.Count);           
+        }
+
+        [TestMethod]
+        public void WhenIGetTheValidRowsItShouldHaveAllValidPossibilities()
+        {
+            IBoard board = new Board();
+
+            var validRows = board.GetValidRows();
+
+            Assert.IsNotNull(validRows.Find(x => x.Contains("A1") && x.Contains("A2") && x.Contains("A3")));
+            Assert.IsNotNull(validRows.Find(x => x.Contains("B1") && x.Contains("B2") && x.Contains("B3")));
+            Assert.IsNotNull(validRows.Find(x => x.Contains("C1") && x.Contains("C2") && x.Contains("C3")));
+
+            Assert.IsNotNull(validRows.Find(x => x.Contains("A1") && x.Contains("B1") && x.Contains("C1")));
+            Assert.IsNotNull(validRows.Find(x => x.Contains("A2") && x.Contains("B2") && x.Contains("C2")));
+            Assert.IsNotNull(validRows.Find(x => x.Contains("A3") && x.Contains("B3") && x.Contains("C3")));
+
+            Assert.IsNotNull(validRows.Find(x => x.Contains("A1") && x.Contains("B2") && x.Contains("C3")));
+            Assert.IsNotNull(validRows.Find(x => x.Contains("A3") && x.Contains("B2") && x.Contains("C1")));
+        }
+
+        [TestMethod]        
+        public void WhenAPlayFullFillAnRowTheGameShouldBeFinished()
+        {
+            IBoard board = new Board();
+            board.PlayerOne = new Player() { Name = "Thiago" };
+            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+
+            board.Start();
+
+            board.SetSpot("A1", board.PlayerOne);
+            board.SetSpot("B1", board.PlayerTwo);
+            board.SetSpot("A2", board.PlayerOne);
+            board.SetSpot("B3", board.PlayerTwo);
+            board.SetSpot("A3", board.PlayerOne);
+
+            Assert.AreEqual(true, board.IsFinished);
+        }
+
+        [TestMethod]
+        public void WhenAPlayNOTFullFillAnRowTheGameShouldNOTBeFinished()
+        {
+            IBoard board = new Board();
+            board.PlayerOne = new Player() { Name = "Thiago" };
+            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+
+            board.Start();
+
+            board.SetSpot("A1", board.PlayerOne);
+            board.SetSpot("C1", board.PlayerTwo);
+            board.SetSpot("A2", board.PlayerOne);
+            board.SetSpot("C2", board.PlayerTwo);
+            board.SetSpot("B1", board.PlayerOne);
+
+            Assert.AreEqual(false, board.IsFinished);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(Exception), "It is not your turn.")]
+        public void WhenAPlayerDoAMoveTwiceItShouldThrowsAnError()
+        {           
+            IBoard board = new Board();
+            board.PlayerOne = new Player() { Name = "Thiago" };
+            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+
+            board.Start();
+            board.SetSpot("A1", board.PlayerOne);
+            board.SetSpot("A2", board.PlayerOne);
+        }
+
+        [TestMethod]
+        public void WhenAPlayNOTFullFillAnRowTheGameShouldNOTDefineItAsWonPlayer()
+        {
+            IBoard board = new Board();
+            board.PlayerOne = new Player() { Name = "Thiago" };
+            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+
+            board.Start();
+
+            board.SetSpot("A1", board.PlayerOne);
+            board.SetSpot("C1", board.PlayerTwo);
+            board.SetSpot("A2", board.PlayerOne);
+            board.SetSpot("C2", board.PlayerTwo);
+            
+            Assert.IsNull(board.GetWonPlayer());
+        }
+
+        [TestMethod]
+        public void WhenAPlayFullFillAnRowTheGameShouldDefineItAsWonPlayer()
+        {
+            IBoard board = new Board();
+            board.PlayerOne = new Player() { Name = "Thiago" };
+            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+
+            board.Start();
+
+            board.SetSpot("A1", board.PlayerOne);
+            board.SetSpot("C1", board.PlayerTwo);
+            board.SetSpot("A2", board.PlayerOne);
+            board.SetSpot("C2", board.PlayerTwo);
+            board.SetSpot("A3", board.PlayerOne);
+
+            Assert.AreEqual(board.PlayerOne,board.GetWonPlayer());
+        }
     }
 }

@@ -15,6 +15,10 @@ namespace prohaska.tictactoe.UI
         Dictionary<string, IPlayer> Spot { get; set; }
         void Start();
         void SetSpot(string spot, IPlayer playerOne);
+        List<List<string>> GetValidRows();
+        bool IsFinished { get; }
+
+        IPlayer GetWonPlayer();
     }
 
    
