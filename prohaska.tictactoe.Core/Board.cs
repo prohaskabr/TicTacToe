@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace prohaska.tictactoe.UI
+namespace prohaska.tictactoe.Core
 {
     public class Board : IBoard
     {

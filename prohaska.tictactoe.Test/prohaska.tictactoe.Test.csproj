@@ -56,9 +56,9 @@
     <Compile Include="Board.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\prohaska.tictactoe.UI\prohaska.tictactoe.UI.csproj">
-      <Project>{ae729188-e54e-491d-b494-125be728719d}</Project>
-      <Name>prohaska.tictactoe.UI</Name>
+    <ProjectReference Include="..\prohaska.tictactoe.Core\prohaska.tictactoe.Core.csproj">
+      <Project>{2d62f95a-4ce7-48c9-a94b-389a4bcde360}</Project>
+      <Name>prohaska.tictactoe.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

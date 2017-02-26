@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace prohaska.tictactoe.UI
+namespace prohaska.tictactoe.Core
 {
-    public interface IPlayer
+    public class Player : IPlayer
     {
-        string Name { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace prohaska.tictactoe.UI
+namespace prohaska.tictactoe.Core
 {
     public interface IBoard
     {
@@ -18,8 +18,7 @@ namespace prohaska.tictactoe.UI
         List<List<string>> GetValidRows();
         bool IsFinished { get; }
 
-        IPlayer GetWonPlayer();
+        IPlayer GetWonPlayer();       
     }
-
    
 }

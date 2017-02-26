@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using prohaska.tictactoe.UI;
-using System.Collections.Generic;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using prohaska.tictactoe.Core;
+using System;
 
 namespace prohaska.tictactoe.Test
 {
