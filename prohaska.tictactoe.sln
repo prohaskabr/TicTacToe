@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prohaska.tictactoe.Test", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prohaska.tictactoe.Core", "prohaska.tictactoe.Core\prohaska.tictactoe.Core.csproj", "{2D62F95A-4CE7-48C9-A94B-389A4BCDE360}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prohaska.tictactoe.UI.win", "prohaska.tictactoe.UI.win\prohaska.tictactoe.UI.win.csproj", "{5F01EEB9-17D5-4143-9F24-94F1B464877F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2D62F95A-4CE7-48C9-A94B-389A4BCDE360}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D62F95A-4CE7-48C9-A94B-389A4BCDE360}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D62F95A-4CE7-48C9-A94B-389A4BCDE360}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F01EEB9-17D5-4143-9F24-94F1B464877F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F01EEB9-17D5-4143-9F24-94F1B464877F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F01EEB9-17D5-4143-9F24-94F1B464877F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F01EEB9-17D5-4143-9F24-94F1B464877F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
