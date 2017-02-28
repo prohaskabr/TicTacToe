@@ -12,11 +12,18 @@ namespace prohaska.tictactoe.Core
         private IPlayer _playerTurn;
         private IPlayer _wonPlayer;
 
+        public event PlayerWonDelegate OnPlayerWon;
+
         public IPlayer PlayerOne { get; set; }
         public IPlayer PlayerTwo { get; set; }
         public Dictionary<string, IPlayer> Spot { get; set; }
 
         public Board()
+        {
+            SetUpValidRowsToWin();
+        }
+
+        private void SetUpValidRowsToWin()
         {
             _WinRows.Add(new List<string>() { "A1", "B1", "C1" });
             _WinRows.Add(new List<string>() { "A2", "B2", "C2" });
@@ -28,12 +35,6 @@ namespace prohaska.tictactoe.Core
             _WinRows.Add(new List<string>() { "A3", "B2", "C1" });
         }
 
-
-        public int GetPositions()
-        {
-            return 9;
-        }
-
         public bool ReadyToStart()
         {
             return PlayerOne != null && PlayerTwo != null;
@@ -42,7 +43,7 @@ namespace prohaska.tictactoe.Core
         public void SetSpot(string spot, IPlayer player)
         {
             IsPlayerTurn(player);
-            if (Spot[spot] == null)
+            if (IsTheSpotAvailable(spot))
             {
                 Spot[spot] = player;
                 CheckItThePlayerWonTheGame(player);
@@ -52,6 +53,11 @@ namespace prohaska.tictactoe.Core
             {
                 throw new Exception("This spot is not available.");
             }
+        }
+
+        private bool IsTheSpotAvailable(string spot)
+        {
+            return Spot[spot] == null;
         }
 
         private void SetNextPlayerTurn(IPlayer currentPlayer)
@@ -69,7 +75,7 @@ namespace prohaska.tictactoe.Core
         {
             List<string> playerPositions = Spot.Where(x => x.Value == player).Select(x => x.Key).ToList();
 
-            if (playerPositions.Count < 3)
+            if (IsThereEnoughSpotOccupiedToWin(playerPositions))
             {
                 IsFinished = false;
             }
@@ -83,10 +89,24 @@ namespace prohaska.tictactoe.Core
                 {
                     IsFinished = true;
                     _wonPlayer = player;
+                    NotifyOnPlayerWon();
                 }
             }
 
 
+        }
+
+        private async void NotifyOnPlayerWon()
+        {
+            await Task.Run(() =>
+            {
+                OnPlayerWon?.Invoke(new PlayerWonEventArgs { Player = _wonPlayer });
+            });
+        }
+
+        private static bool IsThereEnoughSpotOccupiedToWin(List<string> playerPositions)
+        {
+            return playerPositions.Count < 3;
         }
 
         private List<string> FindAPlayerWinRow(List<string> playerPositions)
@@ -113,16 +133,12 @@ namespace prohaska.tictactoe.Core
         private static List<List<string>> GetPlayerSpotsCombinations(List<string> playerPositions)
         {
             var listOfSpotCombinations = new List<List<string>>();
-            var spotombinations = Permutation.GetItens(playerPositions, 3);
+            var allSpotCombinations = Permutation.GetItens(playerPositions, 3);
 
-
-            foreach (var spots in spotombinations)
+            foreach (var spots in allSpotCombinations)
             {
                 var possibleCombination = new List<string>();
-                foreach (var spot in spots)
-                {
-                    possibleCombination.Add(spot);
-                }
+                possibleCombination.AddRange(spots);
                 listOfSpotCombinations.Add(possibleCombination);
             }
 

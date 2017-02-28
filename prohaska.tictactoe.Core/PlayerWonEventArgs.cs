@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace prohaska.tictactoe.Core
 {
-    public interface IPlayer
+    public class PlayerWonEventArgs : EventArgs
     {
-        string Icon { get; set; }
-        string Name { get; set; }
+        public IPlayer Player { get; set; }
     }
+
+    public delegate void PlayerWonDelegate(PlayerWonEventArgs e);
 }

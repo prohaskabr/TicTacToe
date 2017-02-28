@@ -8,6 +8,13 @@ namespace prohaska.tictactoe.Core
 {
     public class Player : IPlayer
     {
+        string _icon;
+        public string Icon
+        {
+            get { return _icon?[0].ToString(); }
+            set { _icon = value; }
+        }
+
         public string Name { get; set; }
     }
 }

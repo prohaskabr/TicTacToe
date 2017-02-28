@@ -13,14 +13,7 @@ namespace prohaska.tictactoe.Test
         public void SetUp() {
            
         }
-
-
-        [TestMethod]
-        public void WhenICreateTheBoardItShoudHave3x3Positions()
-        {
-            IBoard board = new Board();
-            Assert.AreEqual(9, board.GetPositions());
-        }
+        
         [TestMethod]
         public void WhenICreateTheBoardItShoudHaveNoPlayerSigned()
         {
@@ -33,7 +26,7 @@ namespace prohaska.tictactoe.Test
         public void WhenIHaveNoPlayerSignedAndICheckCanStartValueItShouldBeFalse()
         {
             IBoard board = new Board();
-            board.PlayerOne = new Player() {Name = "Thiago" };
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
             Assert.AreEqual(false, board.ReadyToStart());
         }
 
@@ -41,8 +34,8 @@ namespace prohaska.tictactoe.Test
         public void WhenIHaveTwoPlayerSignedAndICheckCanStartValueItShouldBeTrue()
         {
             IBoard board = new Board();
-            board.PlayerOne = new Player() { Name = "Thiago" };
-            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
+            board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
             Assert.AreEqual(true, board.ReadyToStart());
         }
 
@@ -59,7 +52,7 @@ namespace prohaska.tictactoe.Test
         public void WhenIHaveOnePlayerSignedAndIStartItShouldThrowAError()
         {
             IBoard board = new Board();
-            board.PlayerOne = new Player() { Name = "Thiago" };            
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };            
             board.Start();
         }
 
@@ -67,8 +60,8 @@ namespace prohaska.tictactoe.Test
         public void WhenItStartsAllSpotSholdBeEmpty()
         {
             IBoard board = new Board();
-            board.PlayerOne = new Player() { Name = "Thiago" };
-            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
+            board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
 
             board.Start();
 
@@ -90,8 +83,8 @@ namespace prohaska.tictactoe.Test
         {
             const string Spot = "A1";
             IBoard board = new Board();
-            board.PlayerOne = new Player() { Name = "Thiago" };
-            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
+            board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
 
             board.Start();
             board.SetSpot(Spot, board.PlayerOne);
@@ -105,8 +98,8 @@ namespace prohaska.tictactoe.Test
         {
             const string Spot = "A1";
             IBoard board = new Board();
-            board.PlayerOne = new Player() { Name = "Thiago" };
-            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
+            board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
 
             board.Start();
             board.SetSpot(Spot, board.PlayerOne);
@@ -146,8 +139,8 @@ namespace prohaska.tictactoe.Test
         public void WhenAPlayFullFillAnRowTheGameShouldBeFinished()
         {
             IBoard board = new Board();
-            board.PlayerOne = new Player() { Name = "Thiago" };
-            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
+            board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
 
             board.Start();
 
@@ -164,8 +157,8 @@ namespace prohaska.tictactoe.Test
         public void WhenAPlayNOTFullFillAnRowTheGameShouldNOTBeFinished()
         {
             IBoard board = new Board();
-            board.PlayerOne = new Player() { Name = "Thiago" };
-            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
+            board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
 
             board.Start();
 
@@ -183,8 +176,8 @@ namespace prohaska.tictactoe.Test
         public void WhenAPlayerDoAMoveTwiceItShouldThrowsAnError()
         {           
             IBoard board = new Board();
-            board.PlayerOne = new Player() { Name = "Thiago" };
-            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
+            board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
 
             board.Start();
             board.SetSpot("A1", board.PlayerOne);
@@ -195,8 +188,8 @@ namespace prohaska.tictactoe.Test
         public void WhenAPlayNOTFullFillAnRowTheGameShouldNOTDefineItAsWonPlayer()
         {
             IBoard board = new Board();
-            board.PlayerOne = new Player() { Name = "Thiago" };
-            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
+            board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
 
             board.Start();
 
@@ -212,8 +205,8 @@ namespace prohaska.tictactoe.Test
         public void WhenAPlayFullFillAnRowTheGameShouldDefineItAsWonPlayer()
         {
             IBoard board = new Board();
-            board.PlayerOne = new Player() { Name = "Thiago" };
-            board.PlayerTwo = new Player() { Name = "Thiago 2" };
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
+            board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
 
             board.Start();
 
@@ -224,6 +217,25 @@ namespace prohaska.tictactoe.Test
             board.SetSpot("A3", board.PlayerOne);
 
             Assert.AreEqual(board.PlayerOne,board.GetWonPlayer());
+        }
+
+        [TestMethod]
+        public void WhenAPlayWonAnEventInformingThePlayerShouldBeRaise()
+        {           
+            IBoard board = new Board();
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
+            board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
+            board.Start();
+
+            board.OnPlayerWon += (e) => {               
+                Assert.AreEqual(board.PlayerOne, e.Player);
+            };
+
+            board.SetSpot("A1", board.PlayerOne);
+            board.SetSpot("B1", board.PlayerTwo);
+            board.SetSpot("A2", board.PlayerOne);
+            board.SetSpot("B2", board.PlayerTwo);
+            board.SetSpot("A3", board.PlayerOne);    
         }
     }
 }

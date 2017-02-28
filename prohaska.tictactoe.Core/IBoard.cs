@@ -8,7 +8,6 @@ namespace prohaska.tictactoe.Core
 {
     public interface IBoard
     {
-        int GetPositions();
         IPlayer PlayerOne { get; set; }
         IPlayer PlayerTwo { get; set; }
         bool ReadyToStart();
@@ -18,7 +17,10 @@ namespace prohaska.tictactoe.Core
         List<List<string>> GetValidRows();
         bool IsFinished { get; }
 
-        IPlayer GetWonPlayer();       
+        IPlayer GetWonPlayer();
+                     
+        event PlayerWonDelegate OnPlayerWon;
     }
-   
+    
 }
+
