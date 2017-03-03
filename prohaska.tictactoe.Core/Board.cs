@@ -11,12 +11,12 @@ namespace prohaska.tictactoe.Core
         private List<List<string>> _WinRows = new List<List<string>>();
         private IPlayer _playerTurn;
         private IPlayer _wonPlayer;
-
-        public event PlayerWonDelegate OnPlayerWon;
-
+        public event PlayerWon PlayerWon;
         public IPlayer PlayerOne { get; set; }
         public IPlayer PlayerTwo { get; set; }
         public Dictionary<string, IPlayer> Spot { get; set; }
+
+        public bool IsFinished { get; private set; }
 
         public Board()
         {
@@ -35,19 +35,12 @@ namespace prohaska.tictactoe.Core
             _WinRows.Add(new List<string>() { "A3", "B2", "C1" });
         }
 
-        public bool ReadyToStart()
-        {
-            return PlayerOne != null && PlayerTwo != null;
-        }
-
         public void SetSpot(string spot, IPlayer player)
         {
             IsPlayerTurn(player);
             if (IsTheSpotAvailable(spot))
             {
-                Spot[spot] = player;
-                CheckItThePlayerWonTheGame(player);
-                SetNextPlayerTurn(player);
+                MakeThePlayersMove(spot, player);
             }
             else
             {
@@ -55,23 +48,14 @@ namespace prohaska.tictactoe.Core
             }
         }
 
-        private bool IsTheSpotAvailable(string spot)
+        private void MakeThePlayersMove(string spot, IPlayer player)
         {
-            return Spot[spot] == null;
+            Spot[spot] = player;
+            CheckIfThePlayerWonTheGame(player);
+            SetNextPlayerTurn(player);
         }
 
-        private void SetNextPlayerTurn(IPlayer currentPlayer)
-        {
-            _playerTurn = currentPlayer == PlayerOne ? PlayerTwo : PlayerOne;
-        }
-
-        private void IsPlayerTurn(IPlayer playerOne)
-        {
-            if (_playerTurn != playerOne)
-                throw new Exception("It is not your turn.");
-        }
-
-        private void CheckItThePlayerWonTheGame(IPlayer player)
+        private void CheckIfThePlayerWonTheGame(IPlayer player)
         {
             List<string> playerPositions = Spot.Where(x => x.Value == player).Select(x => x.Key).ToList();
 
@@ -81,27 +65,20 @@ namespace prohaska.tictactoe.Core
             }
             else
             {
-                var RowWon = FindAPlayerWinRow(playerPositions);
+                var RowWon = GetAWinRowOfAPlayer(playerPositions);
 
                 if (RowWon == null)
                     IsFinished = false;
                 else
                 {
-                    IsFinished = true;
-                    _wonPlayer = player;
-                    NotifyOnPlayerWon();
+                    FinishGameWithAWonPlayer(player);
                 }
             }
-
-
         }
 
-        private async void NotifyOnPlayerWon()
+        private void SetNextPlayerTurn(IPlayer currentPlayer)
         {
-            await Task.Run(() =>
-            {
-                OnPlayerWon?.Invoke(new PlayerWonEventArgs { Player = _wonPlayer });
-            });
+            _playerTurn = currentPlayer == PlayerOne ? PlayerTwo : PlayerOne;
         }
 
         private static bool IsThereEnoughSpotOccupiedToWin(List<string> playerPositions)
@@ -109,13 +86,31 @@ namespace prohaska.tictactoe.Core
             return playerPositions.Count < 3;
         }
 
-        private List<string> FindAPlayerWinRow(List<string> playerPositions)
+        private List<string> GetAWinRowOfAPlayer(List<string> playerPositions)
         {
             List<List<string>> listOfSpotCombinations = GetPlayerSpotsCombinations(playerPositions);
 
             return GetWinRowIfThePlayerHasOne(listOfSpotCombinations);
         }
 
+        private void FinishGameWithAWonPlayer(IPlayer player)
+        {
+            IsFinished = true;
+            _wonPlayer = player;
+            NotifyOnPlayerWon();
+        }
+
+        private void NotifyOnPlayerWon()
+        {
+            PlayerWon?.Invoke(new PlayerWonEventArgs { Player = _wonPlayer });
+        }
+       
+           
+        private void IsPlayerTurn(IPlayer playerOne)
+        {
+            if (_playerTurn != playerOne)
+                throw new Exception("It is not your turn.");
+        }
         private List<string> GetWinRowIfThePlayerHasOne(List<List<string>> listOfSpotCombinations)
         {
             List<string> result = null;
@@ -129,7 +124,6 @@ namespace prohaska.tictactoe.Core
 
             return result;
         }
-
         private static List<List<string>> GetPlayerSpotsCombinations(List<string> playerPositions)
         {
             var listOfSpotCombinations = new List<List<string>>();
@@ -168,17 +162,12 @@ namespace prohaska.tictactoe.Core
             _wonPlayer = null;
         }
 
-        public List<List<string>> GetValidRows()
-        {
-            return _WinRows;
-        }
+        public List<List<string>> GetValidRows() => _WinRows;
+                
+        public IPlayer GetWonPlayer() => _wonPlayer;               
 
-        public IPlayer GetWonPlayer()
-        {
-            return _wonPlayer;
-        }
+        public bool ReadyToStart() => PlayerOne != null && PlayerTwo != null;
 
-        public bool IsFinished { get; private set; }
-
+        private bool IsTheSpotAvailable(string spot) => Spot[spot] == null;
     }
 }

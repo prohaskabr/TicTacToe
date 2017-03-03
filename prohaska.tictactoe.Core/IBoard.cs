@@ -19,7 +19,7 @@ namespace prohaska.tictactoe.Core
 
         IPlayer GetWonPlayer();
                      
-        event PlayerWonDelegate OnPlayerWon;
+        event PlayerWon PlayerWon;
     }
     
 }

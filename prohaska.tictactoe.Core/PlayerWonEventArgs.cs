@@ -11,5 +11,5 @@ namespace prohaska.tictactoe.Core
         public IPlayer Player { get; set; }
     }
 
-    public delegate void PlayerWonDelegate(PlayerWonEventArgs e);
+    public delegate void PlayerWon(PlayerWonEventArgs e);
 }

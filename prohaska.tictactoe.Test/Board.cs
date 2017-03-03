@@ -7,13 +7,14 @@ namespace prohaska.tictactoe.Test
     [TestClass]
     public class BoardTest
     {
-      
+
 
         [TestInitialize]
-        public void SetUp() {
-           
+        public void SetUp()
+        {
+
         }
-        
+
         [TestMethod]
         public void WhenICreateTheBoardItShoudHaveNoPlayerSigned()
         {
@@ -48,11 +49,11 @@ namespace prohaska.tictactoe.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception),"We need two players to start.")]
+        [ExpectedException(typeof(Exception), "We need two players to start.")]
         public void WhenIHaveOnePlayerSignedAndIStartItShouldThrowAError()
         {
             IBoard board = new Board();
-            board.PlayerOne = new Core.Player() { Name = "Thiago" };            
+            board.PlayerOne = new Core.Player() { Name = "Thiago" };
             board.Start();
         }
 
@@ -93,7 +94,7 @@ namespace prohaska.tictactoe.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception),"This spot is not available.")]
+        [ExpectedException(typeof(Exception), "This spot is not available.")]
         public void WhenAPlayerSelectAnOcupiedSpotItShouldThrowsAnError()
         {
             const string Spot = "A1";
@@ -106,14 +107,14 @@ namespace prohaska.tictactoe.Test
             board.SetSpot(Spot, board.PlayerTwo);
         }
 
-        [TestMethod]       
+        [TestMethod]
         public void WhenIGetTheValidRowsItShouldHaveEightPossibilities()
         {
             IBoard board = new Board();
 
             var validRows = board.GetValidRows();
 
-            Assert.AreEqual(8, validRows.Count);           
+            Assert.AreEqual(8, validRows.Count);
         }
 
         [TestMethod]
@@ -135,7 +136,7 @@ namespace prohaska.tictactoe.Test
             Assert.IsNotNull(validRows.Find(x => x.Contains("A3") && x.Contains("B2") && x.Contains("C1")));
         }
 
-        [TestMethod]        
+        [TestMethod]
         public void WhenAPlayFullFillAnRowTheGameShouldBeFinished()
         {
             IBoard board = new Board();
@@ -174,7 +175,7 @@ namespace prohaska.tictactoe.Test
         [TestMethod]
         [ExpectedException(typeof(Exception), "It is not your turn.")]
         public void WhenAPlayerDoAMoveTwiceItShouldThrowsAnError()
-        {           
+        {
             IBoard board = new Board();
             board.PlayerOne = new Core.Player() { Name = "Thiago" };
             board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
@@ -197,7 +198,7 @@ namespace prohaska.tictactoe.Test
             board.SetSpot("C1", board.PlayerTwo);
             board.SetSpot("A2", board.PlayerOne);
             board.SetSpot("C2", board.PlayerTwo);
-            
+
             Assert.IsNull(board.GetWonPlayer());
         }
 
@@ -216,26 +217,31 @@ namespace prohaska.tictactoe.Test
             board.SetSpot("C2", board.PlayerTwo);
             board.SetSpot("A3", board.PlayerOne);
 
-            Assert.AreEqual(board.PlayerOne,board.GetWonPlayer());
+            Assert.AreEqual(board.PlayerOne, board.GetWonPlayer());
         }
 
         [TestMethod]
         public void WhenAPlayWonAnEventInformingThePlayerShouldBeRaise()
-        {           
+        {
+            IPlayer playerFound = null;
             IBoard board = new Board();
             board.PlayerOne = new Core.Player() { Name = "Thiago" };
             board.PlayerTwo = new Core.Player() { Name = "Thiago 2" };
             board.Start();
 
-            board.OnPlayerWon += (e) => {               
-                Assert.AreEqual(board.PlayerOne, e.Player);
+            board.PlayerWon += (e) =>
+            {
+                playerFound = e.Player;
             };
 
             board.SetSpot("A1", board.PlayerOne);
             board.SetSpot("B1", board.PlayerTwo);
             board.SetSpot("A2", board.PlayerOne);
             board.SetSpot("B2", board.PlayerTwo);
-            board.SetSpot("A3", board.PlayerOne);    
+            board.SetSpot("A3", board.PlayerOne);
+
+
+            Assert.AreEqual(board.PlayerOne, playerFound);
         }
     }
 }
