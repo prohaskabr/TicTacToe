@@ -44,7 +44,7 @@ namespace prohaska.tictactoe.Core
             }
             else
             {
-                throw new Exception("This spot is not available.");
+                throw new NoAvailableSpotException();
             }
         }
 
@@ -71,7 +71,7 @@ namespace prohaska.tictactoe.Core
                     IsFinished = false;
                 else
                 {
-                    FinishGameWithAWonPlayer(player);
+                    FinishGameWithAWinnerPlayer(player);
                 }
             }
         }
@@ -93,7 +93,7 @@ namespace prohaska.tictactoe.Core
             return GetWinRowIfThePlayerHasOne(listOfSpotCombinations);
         }
 
-        private void FinishGameWithAWonPlayer(IPlayer player)
+        private void FinishGameWithAWinnerPlayer(IPlayer player)
         {
             IsFinished = true;
             _wonPlayer = player;
@@ -104,12 +104,12 @@ namespace prohaska.tictactoe.Core
         {
             PlayerWon?.Invoke(new PlayerWonEventArgs { Player = _wonPlayer });
         }
-       
-           
+
+
         private void IsPlayerTurn(IPlayer playerOne)
         {
             if (_playerTurn != playerOne)
-                throw new Exception("It is not your turn.");
+                throw new NotPlayerTurnException();
         }
         private List<string> GetWinRowIfThePlayerHasOne(List<List<string>> listOfSpotCombinations)
         {
@@ -142,8 +142,20 @@ namespace prohaska.tictactoe.Core
         public void Start()
         {
             if (PlayerOne == null || PlayerTwo == null)
-                throw new Exception("We need two players to start.");
+                throw new NotEnoughPlayersException();
 
+            CreateEmptyBoard();
+            DefinePlayOneTurn();
+            _wonPlayer = null;
+        }
+
+        private void DefinePlayOneTurn()
+        {
+            _playerTurn = PlayerOne;
+        }
+
+        private void CreateEmptyBoard()
+        {
             Spot = new Dictionary<string, IPlayer>();
 
             Spot.Add("A1", null);
@@ -157,14 +169,11 @@ namespace prohaska.tictactoe.Core
             Spot.Add("A3", null);
             Spot.Add("B3", null);
             Spot.Add("C3", null);
-
-            _playerTurn = PlayerOne;
-            _wonPlayer = null;
         }
 
         public List<List<string>> GetValidRows() => _WinRows;
-                
-        public IPlayer GetWonPlayer() => _wonPlayer;               
+
+        public IPlayer GetWonPlayer() => _wonPlayer;
 
         public bool ReadyToStart() => PlayerOne != null && PlayerTwo != null;
 

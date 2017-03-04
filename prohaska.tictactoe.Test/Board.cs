@@ -41,7 +41,7 @@ namespace prohaska.tictactoe.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "We need two players to start.")]
+        [ExpectedException(typeof(NotEnoughPlayersException))]
         public void WhenIHaveNoPlayerSignedAndIStartItShouldThrowAError()
         {
             IBoard board = new Board();
@@ -49,7 +49,7 @@ namespace prohaska.tictactoe.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "We need two players to start.")]
+        [ExpectedException(typeof(NotEnoughPlayersException))]
         public void WhenIHaveOnePlayerSignedAndIStartItShouldThrowAError()
         {
             IBoard board = new Board();
@@ -94,7 +94,7 @@ namespace prohaska.tictactoe.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "This spot is not available.")]
+        [ExpectedException(typeof(NoAvailableSpotException))]
         public void WhenAPlayerSelectAnOcupiedSpotItShouldThrowsAnError()
         {
             const string Spot = "A1";
@@ -173,7 +173,7 @@ namespace prohaska.tictactoe.Test
         }
 
         [TestMethod]
-        [ExpectedException(typeof(Exception), "It is not your turn.")]
+        [ExpectedException(typeof(NotPlayerTurnException))]
         public void WhenAPlayerDoAMoveTwiceItShouldThrowsAnError()
         {
             IBoard board = new Board();

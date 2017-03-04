@@ -20,7 +20,7 @@ namespace prohaska.tictactoe.UI.win
         {
             InitializeComponent();
             _board = new Board();
-
+            _board.PlayerWon += OnPlayerWon;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -87,10 +87,7 @@ namespace prohaska.tictactoe.UI.win
             {
                 Button btn = (Button)sender;
                 string spot = btn.Name;
-                MakeAMove(spot, GetCurrentPlayer());
-                UpdateScreen(btn, GetCurrentPlayer());
-                SetNextPlayer();
-                CheckIfSomeOneWon();
+                MakeAPlayerMove(btn, spot);
             }
             catch (Exception ex)
             {
@@ -98,12 +95,13 @@ namespace prohaska.tictactoe.UI.win
             }
         }
 
-        private void CheckIfSomeOneWon()
+        private void MakeAPlayerMove(Button btn, string spot)
         {
-            var wonPlayer = _board.GetWonPlayer();
+            var player = GetCurrentPlayer();
 
-            if (wonPlayer != null)
-                MessageBox.Show($"{wonPlayer.Name} Win!");
+            _board.SetSpot(spot, player);
+            UpdateScreen(btn, player);
+            SetNextPlayer();
         }
 
         private void UpdateScreen(Button btn, IPlayer player)
@@ -116,10 +114,6 @@ namespace prohaska.tictactoe.UI.win
             return player == _board.PlayerOne ? "X" : "O";
         }
 
-        private void MakeAMove(string spot, IPlayer player)
-        {
-            _board.SetSpot(spot, player);
-        }
 
         private IPlayer GetCurrentPlayer()
         {
@@ -142,6 +136,11 @@ namespace prohaska.tictactoe.UI.win
         private void SetNextPlayer()
         {
             _playerTurn = _playerTurn == 1 ? 2 : 1;
+        }
+
+        private void OnPlayerWon(PlayerWonEventArgs e)
+        {
+            Task.Run(()=> MessageBox.Show($"{e.Player.Name} Win!"));
         }
     }
 }
