@@ -37,7 +37,7 @@ namespace prohaska.tictactoe.Core
 
         public void SetSpot(string spot, IPlayer player)
         {
-            IsPlayerTurn(player);
+            ValidateItIsThePlayerTurn(player);
             if (IsTheSpotAvailable(spot))
             {
                 MakeThePlayersMove(spot, player);
@@ -61,15 +61,9 @@ namespace prohaska.tictactoe.Core
 
             if (IsThereEnoughSpotOccupiedToWin(playerPositions))
             {
-                IsFinished = false;
-            }
-            else
-            {
                 var RowWon = GetAWinRowOfAPlayer(playerPositions);
 
-                if (RowWon == null)
-                    IsFinished = false;
-                else
+                if (RowWon != null)
                 {
                     FinishGameWithAWinnerPlayer(player);
                 }
@@ -83,14 +77,14 @@ namespace prohaska.tictactoe.Core
 
         private static bool IsThereEnoughSpotOccupiedToWin(List<string> playerPositions)
         {
-            return playerPositions.Count < 3;
+            return playerPositions.Count >= 3;
         }
 
         private List<string> GetAWinRowOfAPlayer(List<string> playerPositions)
         {
             List<List<string>> listOfSpotCombinations = GetPlayerSpotsCombinations(playerPositions);
 
-            return GetWinRowIfThePlayerHasOne(listOfSpotCombinations);
+            return GetWineerRow(listOfSpotCombinations);
         }
 
         private void FinishGameWithAWinnerPlayer(IPlayer player)
@@ -106,17 +100,26 @@ namespace prohaska.tictactoe.Core
         }
 
 
-        private void IsPlayerTurn(IPlayer playerOne)
+        private void ValidateItIsThePlayerTurn(IPlayer playerOne)
         {
             if (_playerTurn != playerOne)
                 throw new NotPlayerTurnException();
         }
-        private List<string> GetWinRowIfThePlayerHasOne(List<List<string>> listOfSpotCombinations)
+        private List<string> GetWineerRow(List<List<string>> listOfSpotCombinations)
         {
             List<string> result = null;
+
+            string spotOne = string.Empty;
+            string spotTwo = string.Empty;
+            string spotThree = string.Empty;
+
             foreach (var item in listOfSpotCombinations)
             {
-                result = _WinRows.Find(x => x.Contains(item.First()) && x.Contains(item.Skip(1).First()) && x.Contains(item.Skip(2).First()));
+                spotOne = item.First();
+                spotTwo = item.Skip(1).First();
+                spotThree = item.Skip(2).First();
+
+                result = _WinRows.Find(x => x.Contains(spotOne) && x.Contains(spotTwo) && x.Contains(spotThree));
 
                 if (result != null)
                     return result;

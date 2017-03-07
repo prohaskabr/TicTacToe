@@ -239,8 +239,7 @@ namespace prohaska.tictactoe.Test
             board.SetSpot("A2", board.PlayerOne);
             board.SetSpot("B2", board.PlayerTwo);
             board.SetSpot("A3", board.PlayerOne);
-
-
+            
             Assert.AreEqual(board.PlayerOne, playerFound);
         }
     }
